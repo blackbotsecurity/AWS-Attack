@@ -1,0 +1,13 @@
+run lightsail_download_ssh_keys
+run lightsail_enum_activenames
+run lightsail_enum_blueprints
+run lightsail_enum_bundles
+run lightsail_enum_disks
+run lightsail_enum_disk_snapshots
+run lightsail_enum_instances
+run lightsail_enum_keypairs
+run lightsail_enum_load_balancers
+run lightsail_enum_operations
+run lightsail_enum_staticips
+run lightsail_generate_ssh_keys
+run lightsail_generate_temp_access

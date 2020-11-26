@@ -1,0 +1,2 @@
+run  cloudtrail_csv_injection
+run  cloudtrail_download_event_history

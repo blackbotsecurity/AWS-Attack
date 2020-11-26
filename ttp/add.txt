@@ -1,0 +1,3 @@
+    'ttp_exec': '',
+    'ttp_mitigation': '',
+    'ttp_detection': '',

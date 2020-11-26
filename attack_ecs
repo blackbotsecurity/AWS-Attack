@@ -1,0 +1,5 @@
+run ecs_dumps_task_def
+run ecs_enum_clusters
+run ecs_enum_containers
+run ecs_enum_services
+run ecs_enum_taskdef

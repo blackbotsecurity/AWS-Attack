@@ -1,0 +1,3 @@
+run ebs_enum_snapshots
+run ebs_enum_volumes
+run ebs_explore_snapshots

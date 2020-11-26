@@ -1,0 +1,8 @@
+run lambda_backdoor_new_roles
+run lambda_backdoor_new_roles_cleanup
+run lambda_backdoor_new_sec_groups
+run lambda_backdoor_new_sec_groups_cleanup
+run lambda_backdoor_new_users
+run lambda_backdoor_new_users_cleanup
+run lambda_check_functions
+run lambda_enum

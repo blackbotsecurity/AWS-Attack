@@ -1,0 +1,6 @@
+run elb__enum_logging
+run guardduty__whitelist_ip
+run cloudwatch__download_logs
+run waf__enum
+run cloudtrail__download_event_history
+run detection__disruption

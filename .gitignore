@@ -1,0 +1,15 @@
+__pycache__/
+*__pycache/
+*.py[cod]
+*$py.class
+pip-log.txt
+*.env
+other/
+output/
+sessions/
+*.pyproj
+*.db
+global_error_log.txt
+*.log
+*.keys
+*.data

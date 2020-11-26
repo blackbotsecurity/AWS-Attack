@@ -1,0 +1,17 @@
+technique_info = {
+        'controller': '',
+        'ttp_id': '',
+        'last_updated_by': '',
+        'tactic': '',
+        'tactic_id': '',
+        'intent': '',
+        'name': '',
+        'mid': '',
+        'services': '',
+        'prerequisite_modules': '',
+        'exeternal_dependecies': '',
+        'arguments_to_autocomplete': '',
+        'version': '',
+        'aws_namespaces': '',
+        'defense_bypassed': '',
+    }

@@ -1,0 +1,3 @@
+run vpc_enum_peering
+run vpc_enum_vpn
+run vpc_enum_directconnect

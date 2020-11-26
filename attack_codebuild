@@ -1,0 +1,4 @@
+run codebuild_dumps_builds
+run codebuild_dumps_projects
+run codebuild_enum_builds
+run codebuild_enum_projects

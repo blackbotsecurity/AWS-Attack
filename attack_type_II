@@ -1,0 +1,5 @@
+run ec2_enum_securitygroups
+rum ecs_dumps_task_def 
+run iam_enum_roles
+run iam_enum_guessing_roles
+run lambda_backdoor_new_sec_groups_cleanup

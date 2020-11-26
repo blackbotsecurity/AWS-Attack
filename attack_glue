@@ -1,0 +1,5 @@
+run glue_enum_connections
+run glue_enum_crawlers
+run glue_enum_databases
+run glue_enum_devendpoints
+run glue_enum_jobs

@@ -1,0 +1,2 @@
+run aws_enum_account
+run aws_enum_spend

@@ -1,0 +1,13 @@
+run detection_disruption_alarms
+run detection_disruption_cloudtrail
+run detection_disruption_config_aggregators
+run detection_disruption_config_recorders
+run detection_disruption_config_rules
+run detection_disruption_guardduty
+run detection_disruption_vpc
+run detection_enum_services_cloudtrail
+run detection_enum_services_cloudwatch
+run detection_enum_services_config
+run detection_enum_services_guardduty
+run detection_enum_services_shield
+run detection_enum_services_vpc

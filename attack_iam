@@ -1,0 +1,17 @@
+run iam_backdoor_assume_role
+run iam_backdoor_users_keys
+run iam_backdoor_users_password
+run iam_bruteforce_permissions
+run iam_build_service_list
+run iam_detect_honeytokens
+run iam_dumps_credential_report
+run iam_enum_groups
+run iam_enum_guessing_roles
+run iam_enum_guessing_users
+run iam_enum_policies
+run iam_enum_users
+run iam_enum_users_permissions
+run iam_get_credential_report
+run iam_privesc_scan
+run iam_enum_roles_permissions
+run iam_enum_roles
