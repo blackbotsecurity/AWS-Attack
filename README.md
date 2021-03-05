@@ -143,8 +143,8 @@ AWSATT&CK enhances Pacu's post-exploitation tactics and logging capabilities wit
 | ttp/waf_enum.py: | T1518.b.002 |
 
 
-##LOGGING ENHANCEMENTS
-JSON logging is enrichmented with MITRE ATT&CK techniques and additional fields that make it easy for operators to identify and mitigate AWS security defenses. 
+## LOGGING ENHANCEMENTS
+JSON logging is enriched with MITRE ATT&CK techniques and additional fields that make it easy for operators to identify and mitigate AWS security gaps. 
 ```
 {
   "technique_info": {
@@ -225,8 +225,8 @@ JSON logging is enrichmented with MITRE ATT&CK techniques and additional fields 
   "event_id": "SWcAygC3Iclcr",
   "ac_id": "",
   "evidence": {
-    "aws_access_key_id": "2k3i9f6vtdh4g0f982l5qltc52k3ofo8dg5",
-    "aws_secret_access_key": "63dkic9spofuighsduf4567hna76slhj2p7v",
+    "aws_access_key_id": "2k3i9f6vtdh4g0l5qltc52k3ofo8dg5",
+    "aws_secret_access_key": "63dkic9sp47h7ighsduf4567hnhj2p7v",
     "aws_session_token": null,
     "regions": null
   }
