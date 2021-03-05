@@ -29,8 +29,8 @@ Blackbot Labs builds and delivers open source tools with the flexibility and int
 - **RAPID DEPLOYMENT**
 Facilitating rapid deployment models is important to us. We'll do our best to deliver practical deployment frameworks that facilitate advanced security eco-systems and data-driven pipelines. 
 
-# CAPABILITIES
-AWSATT&CK enhances Pacu's post-exploitation tactics and logging capabilities with MITRE ATT&CK. We inlucded a `b` in a handful of techniques that aren't in the ATT&CK framework. Other light-weight enhancements include console opsec checks for cases wherein target environments require assessing multi-region environments.
+# ADDITIONAL ENHANCEMENTS
+AWSATT&CK enhances Pacu's post-exploitation tactics and logging capabilities with MITRE ATT&CK. We inlucded an `els.py` module for posting events directly to a elastic search or any SIEM. `technique_info` was added to each controller in `./awsattack/ttp/` to support MITRE ATT&CK enrichment and controller dependencies. Automation attack files were organized for rapid execution via use of the `run-attack` function. A `b` is in a handful of techniques that aren't in the ATT&CK framework. Other light-weight enhancements include console opsec checks for cases wherein target environments require assessing multi-region environments.
 
 
 | PACU TECHNIQUE | MITRE ATT&CK ID |
@@ -241,7 +241,7 @@ JSON logging is enriched with MITRE ATT&CK techniques and additional fields that
 ## USE CASES 
 - SOCs, AWS Security engineers, DevSecOps, teams need to evaluate AWS workload protection against targeted AWS attacks and map results to MITRE ATT&CK
 
-GET INVOLVED
+## GET INVOLVED
 [Join the Pacu community on slack](https://join.slack.com/t/pacu-cloudgoat/shared_invite/enQtNDE3OTk0MjA3NTA2LTRmOTVmZjEyYjIzOTYxMGJmZDc4ZDVkOGU3ZmJlOWZhNzdkYWQ2ZmQxNTFjZThjMmJlMDFmMTU4NzUwMDM2NmY)
 
 
@@ -258,7 +258,7 @@ Blackbot Labs operates under the umbrella of full transparency while ensuring en
 
 ## Disclaimers, and the AWS Acceptable Use Policy
 
-AWSATT&CK enhancements and and Pacu's capabilities are compliant with the AWS Acceptable Use Policy. 
+AWSATT&CK enhancements and Pacu's capabilities are compliant with the AWS Acceptable Use Policy. 
     For opsec safe operations, request authorization from Amazon before actually running AWSATT&CK against your infrastructure.    
     
 
