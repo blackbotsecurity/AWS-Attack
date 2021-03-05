@@ -40,7 +40,7 @@ except ModuleNotFoundError as error:
 
 
 class Main:
-   
+
     COMMANDS = [
         'aws', 'data', 'exec', 'exit', 'help', 'import_keys', 'list', 'run-attack',
         'ls', 'quit', 'regions', 'run', 'search', 'services', 'set_keys', 'set_regions',
@@ -186,16 +186,12 @@ class Main:
                     split_message[index] = '[{}] {}'.format(self.running_technique_names[-1], fragment)
                     break
             message = '\n'.join(split_message)
-#TODO: Daniel - add sessionID logging
-#https://blackbot.atlassian.net/browse/ZERO-129
         res = input(message)
         if output == 'both':
             if output_type == 'plain':
                 with open('sessions/{}/sessions.log'.format(session_name), 'a+') as file:
                     file.write('{} {}\n'.format(message, res))
             elif output_type == 'xml':
-                # TODO: daniel Implement actual XML output
-                # https://blackbot.atlassian.net/browse/ZERO-128
                 # now = time.time()
                 with open('sessions/{}/sessions.xml'.format(session_name), 'a+') as file:
                     file.write('{} {}\n'.format(message, res))\
@@ -331,22 +327,6 @@ class Main:
                 self.exec_technique(['exec', technique])
         return True
 
-#TODO: This code checks for awsattack update sin a public repo
-#      We need to check for updates in our own repo
-#      All check_for_updates in this code is commented out
-
-
-#    def check_for_updates(self):
-#        with open('./last_update.txt', 'r') as f:
-#            local_last_update = f.read().rstrip()
-#
-#        latest_update = requests.get('https://raw.githubusercontent.com/blackbotinc/awsattack/master/last_update.txt').text.rstrip()
-#
-#        local_year, local_month, local_day = local_last_update.split('-')
-#        datetime_local = datetime.date(int(local_year), int(local_month), int(local_day))
-#
-#        latest_year, latest_month, latest_day = latest_update.split('-')
-#        datetime_latest = datetime.date(int(latest_year), int(latest_month), int(latest_day))
 
         if datetime_local < datetime_latest:
             print('⣿ awsattack :≫ has a new version available! Clone it from GitHub to receive the updates.')
@@ -557,7 +537,7 @@ class Main:
             result = subprocess.check_output(command, shell=True, stderr=subprocess.STDOUT).decode('utf-8')
         except subprocess.CalledProcessError as error:
             result = error.output.decode('utf-8')
-        
+
         self.print(result)
 
     def parse_data_command(self, command):
@@ -572,7 +552,7 @@ class Main:
             elif getattr(session, command[1]) == {} or getattr(session, command[1]) == [] or getattr(session, command[1]) == '':
                 print('⣿ awsattack :≫ No data found.')
             else:
-                
+
                 print(json.dumps(getattr(session, command[1]), indent=2, sort_keys=True, default=str))
 
     def parse_set_regions_command(self, command):
@@ -625,24 +605,23 @@ class Main:
     def display_awsattack_help(self):
         print("""
 
-            AAWS C2 CONSOLE CONTROLS: TIER I-III
+            AWS ATT&CK CONSOLE CONTROLS: TIER I-III
             +____________________________________________________________________________________________________+
-            |   DISPLAY GENERAL INFORMATION             |  DESCRIPTION 
+            |   DISPLAY GENERAL INFORMATION             |  DESCRIPTION
             +____________________________________________________________________________________________________+
-
             list ....................................... List all ttp
             help  ...................................... Display this page of information
             help <technique name>  ..................... Display information about a technique
             whoami  .................................... Display information regarding to the active access keys
             data  ...................................... Display all data that is stored in this session. Only fields
             data <service>  ............................ Display all data for a specified service in this session
-            services ................................... Display a list of services that have collected data in the current session to use with the "data" command
             regions  ................................... Display a list of all valid AWS regions
-            
+            services ................................... Display a list of services that have collected data in the current session to use with the "data" command
+            search [cat[egory]] <search term>  ......... Search the list of available ttp by name or tactic
+
             +____________________________________________________________________________________________________+
-            |   KEY & SESSION MANAGEMENT               |  DESCRIPTION 
+            |   KEY & SESSION MANAGEMENT                |  DESCRIPTION
             +____________________________________________________________________________________________________+
-            
             set_keys  .................................. Add a set of AWS keys to the session and set them as the  default
             swap_keys  ................................. Change the currently active AWS key to another key that has previously been set for this session
             import_keys <profile name>|--all ........... Import AWS keys from the AWS CLI credentials file (located at ~/.aws/credentials) to the current sessions database.
@@ -651,12 +630,14 @@ class Main:
             sessions  .................................. List all sessions in the awsattack database
             change_session  ............................ Change the active awsattack session to another one in the database
             delete_session  ............................ Delete a awsattack session from the database. Note that the output folder for that session will not be deleted
-            
-            
+
+
+            +____________________________________________________________________________________________________+
+            |   EXECUTION                               |  DESCRIPTION
+            +____________________________________________________________________________________________________+
             run/exec <technique name>  ................. Execute a technique
             aws <command>  ............................. Run an arbitrary AWS CLI commands. example: aws jq
             run-attack <file> .......................... Load an existing file with list of commands to execute
-            search [cat[egory]] <search term>  ......... Search the list of available ttp by name or tactic
             console  ................................... T1538: Generate a URL that will log the current user/role in to the AWS web console
             exit/quit  ................................. Exit awsattack
         """)
@@ -761,7 +742,7 @@ class Main:
         }
 
         res = requests.get(url='https://signin.aws.amazon.com/federation', params=params)
-        
+
         signin_token = res.json()['SigninToken']
 
         params = {
@@ -828,10 +809,10 @@ aws_secret_access_key = {}
     # value@region
     # Arguments that accept multiple values should be comma separated.
     ######
-    
+
     def complete_user_info(self):
         info = self.key_info()
-       
+
         try:
             summary_data = {
                     'username': info['UserName'],
@@ -844,7 +825,7 @@ aws_secret_access_key = {}
         except:
             summary_data = {}
         event_log = self.generating_event_log(self.chain, template=iam_policy_discovery)
-        
+
         event_log['evidence'] = summary_data
         event_log['evidence_status'] = '1'
         self.print(event_log)
@@ -852,11 +833,11 @@ aws_secret_access_key = {}
     def exec_technique(self, command, chain=False):
         self.chain = chain
         self.current_technique = command[1].lower()
-        
+
         event_log = self.generating_event_log(self.chain)
 
         session = self.get_active_session()
-    
+
         # Run key checks so that if no keys have been set, awsattack doesn't default to
         # the AWSCLI default profile:
         if not session.access_key_id:
@@ -865,7 +846,7 @@ aws_secret_access_key = {}
         if not session.secret_access_key:
             print('⣿ awsattack :≫ No secret key has been set. Not running technique.')
             return
-        
+
         technique_name = command[1].lower()
         technique = self.import_technique_by_name(technique_name, include=['main', 'technique_info', 'summary'])
 
@@ -893,7 +874,7 @@ aws_secret_access_key = {}
             self.running_technique_names.append(technique.technique_info['controller'])
             try:
                 summary_data = technique.main(command[2:], self)
-                ttp_data = technique.technique_info 
+                ttp_data = technique.technique_info
                 # If the technique's return value is None, it exited early.
                 if summary_data is not None:
                     event_log['evidence_status'] = '1'
@@ -908,8 +889,9 @@ aws_secret_access_key = {}
 
                 else:
                     event_log['evidence_status'] = '0'
-                
+
                 # do_api_upload() is the function that uploads the data to elk
+                # MITRE ATT&CK and evidence fields
                 self.complete_user_info()
                 if summary_data is not None:
                     blackbot_id = ttp_data['blackbot_id']
@@ -991,7 +973,7 @@ aws_secret_access_key = {}
         elif command_name == 'exit' or command_name == 'quit':
             print('\n    exit/quit\n        Exit awsattack\n')
         elif command_name == 'run-attack':
-            print('\n    run-attack asdfasfdasdfasd      <commands_file>\n        Load an existing file with a set of commands to execute')
+            print('\n    run-attack <commands_file>\n        Load an existing file with a set of commands to execute')
         else:
             print('⣿ awsattack :≫ OPERATOR ERROR: Command or technique not found.')
         return
@@ -1024,8 +1006,8 @@ aws_secret_access_key = {}
         #    specific_technique_directory = os.path.realpath(root)
         if True:
             (_, _, filenames) = next(os.walk(f'{current_directory}/ttp'))
-        
-        
+
+
             # Skip any directories inside technique directories.
             #if os.path.dirname(specific_technique_directory) != ttp_directory_path:
             #    continue
@@ -1210,9 +1192,8 @@ aws_secret_access_key = {}
     def check_sessions(self):
         sessions = self.database.query(awsattackSession).all()
         banner = ('''
-                
-⣿ ≫ ████ A W S ████ A T T & C K
-                ''') 
+
+                ''')
 
         if not sessions:
             session = self.new_session()
@@ -1221,8 +1202,7 @@ aws_secret_access_key = {}
             os.system('clear')
             print(banner)
             print('''
-AWS C2 ACCESS CONSOLE | Version 1.0.1 | Author: Blackbot, Inc.
-Description: An AWS Tailored Access Operations Console built for offensive security testing
+⣿ ≫ ████ A W S ████ A T T & C K | AWS ACCESS CONSOLE | Version 1.0.1
 
 AWS Security Operator Instructions:
 Choose [0-9] options provided below to continue AWS Tailored Access Operations.''')
@@ -1356,7 +1336,7 @@ Choose [0-9] options provided below to continue AWS Tailored Access Operations.'
                 self.print('⣿ awsattack :≫ {}'.format(new_ua))
 
 # BUG FIX: Daniel: ??  - Code Review
-# We had to declare the event ID generator again for 'console' 
+# We had to declare the event ID generator again for 'console'
 
     def generating_event_log(self, chain, template=None):
 
@@ -1366,7 +1346,7 @@ Choose [0-9] options provided below to continue AWS Tailored Access Operations.'
             if template is not None:
                 if 'used_by' in template:
                     template['used_by'] = self.current_technique
-        
+
                 blackbot_id = template['blackbot_id']
                 external_id = template['external_id']
                 version = template['version']
@@ -1380,7 +1360,7 @@ Choose [0-9] options provided below to continue AWS Tailored Access Operations.'
         event_log = self.generating_event_log(self.chain, template=valid_account_info)
 
         session = self.get_active_session()
-        
+
         if not session.access_key_id:
             print('⣿ awsattack :≫ No access key has been set. Failed to generate boto3 Client.')
             return
@@ -1413,7 +1393,7 @@ Choose [0-9] options provided below to continue AWS Tailored Access Operations.'
 
         valid_account_info['services'] = service
         valid_account_info['evidence_status'] = '1'
-        
+
         self.print(event_log)
         do_api_upload(event_log)
 
@@ -1631,13 +1611,13 @@ Choose [0-9] options provided below to continue AWS Tailored Access Operations.'
             self.print_key_info()
 
     def run_gui(self):
-        banner = (''' 
-     
+        banner = ('''
+
 
 ⣿ ≫ ████ A W S ████ A T T & C K
 
 ''')
- 
+
         idle_ready = False
 
         while True:
@@ -1661,7 +1641,7 @@ Choose [0-9] options provided below to continue AWS Tailored Access Operations.'
                     self.initialize_tab_completion()
                     self.display_awsattack_help()
 
-#TODO: 
+#TODO:
 #                    self.check_for_updates()
 
                     idle_ready = True
